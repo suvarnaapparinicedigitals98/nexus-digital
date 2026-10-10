@@ -1,0 +1,1682 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEXUS // DIGITAL — Next-Gen Web Design & Development Agency</title>
+  <meta name="description" content="Award-winning futuristic digital agency engineering high-converting web designs, immersive 3D WebGL experiences, and hyper-scalable modern web applications.">
+
+  <!-- Google Fonts: Syne (Display) & Plus Jakarta Sans (Body) & JetBrains Mono (Code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN & Custom Config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            obsidian: {
+              DEFAULT: '#06080e',
+              800: '#18203c',
+              850: '#141a30',
+              900: '#101426',
+              950: '#0a0d18'
+            },
+            'neon-cyan': '#00f0ff',
+            'neon-orange': '#ff6b00',
+            'neon-amber': '#ff9900'
+          },
+          fontFamily: {
+            display: ['Syne', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Three.js CDN for 3D Hero Constellation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-obsidian text-slate-100 font-sans antialiased overflow-x-hidden selection:bg-neon-cyan/20 selection:text-neon-cyan">
+
+  <!-- Ambient Glowing Background Spheres -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="ambient-glow glow-cyan top-[-10%] left-[-10%]"></div>
+    <div class="ambient-glow glow-orange top-[40%] right-[-15%]"></div>
+    <div class="ambient-glow glow-blue bottom-[-10%] left-[20%]"></div>
+    <div class="ambient-grid"></div>
+    <!-- Mouse Follower Spotlight -->
+    <div id="cursor-spotlight" class="cursor-spotlight"></div>
+  </div>
+
+  <!-- Glassmorphic Header Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-obsidian-900/60 border-b border-white/[0.08] transition-all duration-300" id="main-header">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Agency Brand Logo -->
+      <a href="#hero" class="flex items-center gap-3 group">
+        <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-neon-cyan to-neon-orange p-[1.5px] transition-transform duration-300 group-hover:scale-105 shadow-glow-sm">
+          <div class="w-full h-full bg-obsidian-950 rounded-[10px] flex items-center justify-center">
+            <span class="font-display font-extrabold text-lg text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-orange tracking-tighter">NX</span>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-display font-bold text-lg tracking-wider uppercase text-white flex items-center gap-1.5">
+            Nexus <span class="text-neon-orange font-mono text-sm">//</span> Digital
+          </span>
+          <span class="text-[10px] uppercase font-mono tracking-widest text-slate-400">Design &bull; Code &bull; 3D</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+        <a href="#web-design" class="nav-link hover:text-neon-cyan transition-colors">Web Design</a>
+        <a href="#web-development" class="nav-link hover:text-neon-orange transition-colors">Development</a>
+        <a href="#services" class="nav-link hover:text-neon-cyan transition-colors">Services</a>
+        <a href="#process" class="nav-link hover:text-neon-orange transition-colors">Our Process</a>
+        <a href="#projects" class="nav-link hover:text-neon-cyan transition-colors">Projects</a>
+        <a href="#technologies" class="nav-link hover:text-neon-orange transition-colors">Stack</a>
+      </nav>
+
+      <!-- Action Items & Audio Synthesizer Toggle -->
+      <div class="flex items-center gap-4">
+        <!-- Audio Ambient FX Toggle -->
+        <button id="audio-toggle" class="relative p-2.5 rounded-xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] text-slate-400 hover:text-neon-cyan transition-all flex items-center justify-center group" title="Toggle Sci-Fi UI Audio FX" aria-label="Toggle Sci-Fi Audio Feedback">
+          <i data-lucide="volume-x" id="audio-icon-off" class="w-4 h-4"></i>
+          <i data-lucide="volume-2" id="audio-icon-on" class="w-4 h-4 hidden text-neon-cyan"></i>
+          <span class="absolute -bottom-8 px-2 py-0.5 rounded text-[10px] font-mono bg-obsidian-900 border border-white/10 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">Audio FX</span>
+        </button>
+
+        <!-- CTA Button -->
+        <a href="#cta" class="relative group hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl overflow-hidden text-sm font-semibold text-white shadow-glow-cyan/20">
+          <div class="absolute inset-0 bg-gradient-to-r from-neon-cyan via-blue-600 to-neon-orange transition-transform duration-500 group-hover:scale-105"></div>
+          <div class="absolute inset-[1.5px] bg-obsidian-950/80 rounded-[10px] transition-colors group-hover:bg-transparent"></div>
+          <span class="relative z-10 flex items-center gap-2 tracking-wide font-display text-xs uppercase">
+            Let's Build <i data-lucide="sparkles" class="w-3.5 h-3.5 text-neon-cyan group-hover:rotate-45 transition-transform"></i>
+          </span>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl border border-white/10 text-slate-300 hover:text-white" aria-label="Open Navigation Menu">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu" class="md:hidden hidden bg-obsidian-950/95 border-b border-white/10 px-6 py-6 space-y-4 backdrop-blur-2xl">
+      <a href="#web-design" class="block text-slate-300 hover:text-neon-cyan text-base font-medium py-1">Web Design</a>
+      <a href="#web-development" class="block text-slate-300 hover:text-neon-orange text-base font-medium py-1">Development</a>
+      <a href="#services" class="block text-slate-300 hover:text-neon-cyan text-base font-medium py-1">Services</a>
+      <a href="#process" class="block text-slate-300 hover:text-neon-orange text-base font-medium py-1">Our Process</a>
+      <a href="#projects" class="block text-slate-300 hover:text-neon-cyan text-base font-medium py-1">Projects</a>
+      <a href="#technologies" class="block text-slate-300 hover:text-neon-orange text-base font-medium py-1">Technologies</a>
+      <a href="#cta" class="block text-center w-full py-3 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-orange text-white font-bold text-sm tracking-wider uppercase mt-4">
+        Start Your Project
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="relative z-10">
+
+    <!-- 1. HERO SECTION WITH 3D CANVAS & KINETIC HEADLINE -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-28 pb-20 px-6 max-w-7xl mx-auto overflow-hidden">
+      <!-- 3D Three.js Background Canvas Container -->
+      <div id="hero-3d-canvas" class="absolute inset-0 z-0 pointer-events-auto opacity-75"></div>
+
+      <div class="relative z-10 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Left Hero Copy -->
+        <div class="lg:col-span-7 space-y-8">
+          <!-- Availability Badge -->
+          <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-neon-cyan/30 bg-neon-cyan/[0.05] backdrop-blur-md shadow-glow-cyan/10">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-neon-cyan opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-neon-cyan"></span>
+            </span>
+            <span class="font-mono text-xs uppercase tracking-wider text-neon-cyan font-semibold">Available for Q4/2026 Production</span>
+            <span class="text-slate-500 font-mono text-xs">•</span>
+            <span class="text-slate-400 text-xs font-mono">Awarded Agency of Year</span>
+          </div>
+
+          <!-- Hero Headline -->
+          <h1 class="text-4xl sm:text-6xl xl:text-7xl font-display font-extrabold tracking-tight text-white leading-[1.08]">
+            Architecting <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-sky-300 to-white">Next-Gen Web Design</span> <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-orange via-amber-400 to-rose-400">&amp; Hyper-Scale Code.</span>
+          </h1>
+
+          <!-- Subheadline -->
+          <p class="text-lg sm:text-xl text-slate-300 max-w-2xl font-normal leading-relaxed">
+            We fuse award-winning visual aesthetics with high-performance 3D WebGL, transforming visionary Figma prototypes into living, lightning-fast digital flagships.
+          </p>
+
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap items-center gap-4 pt-2">
+            <a href="#web-design" class="px-7 py-3.5 rounded-xl bg-gradient-to-r from-neon-cyan via-blue-500 to-neon-orange text-white font-display font-bold text-sm uppercase tracking-wider shadow-glow-cyan hover:shadow-glow-orange transition-all duration-300 hover:scale-[1.02] flex items-center gap-2 group">
+              <span>Experience The Transformation</span>
+              <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
+            <a href="#web-development" class="px-6 py-3.5 rounded-xl border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] backdrop-blur-md text-slate-200 font-display font-semibold text-sm uppercase tracking-wider transition-all duration-300 flex items-center gap-2.5">
+              <i data-lucide="code-2" class="w-4 h-4 text-neon-orange"></i>
+              <span>View Live Code Engine</span>
+            </a>
+          </div>
+
+          <!-- Hero Statistics Ribbon -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-white/10">
+            <div class="space-y-1">
+              <div class="font-display font-extrabold text-2xl sm:text-3xl text-white flex items-center">
+                <span class="counter" data-target="99.9">0</span>%
+              </div>
+              <p class="text-xs font-mono uppercase tracking-wider text-slate-400">Core Web Vitals</p>
+            </div>
+            <div class="space-y-1">
+              <div class="font-display font-extrabold text-2xl sm:text-3xl text-neon-cyan flex items-center">
+                <span class="counter" data-target="48">0</span>+
+              </div>
+              <p class="text-xs font-mono uppercase tracking-wider text-slate-400">Awwwards / FWA</p>
+            </div>
+            <div class="space-y-1">
+              <div class="font-display font-extrabold text-2xl sm:text-3xl text-neon-orange flex items-center">
+                $<span class="counter" data-target="140">0</span>M+
+              </div>
+              <p class="text-xs font-mono uppercase tracking-wider text-slate-400">Client Revenue</p>
+            </div>
+            <div class="space-y-1">
+              <div class="font-display font-extrabold text-2xl sm:text-3xl text-white flex items-center">
+                <span class="counter" data-target="0.18">0</span>s
+              </div>
+              <p class="text-xs font-mono uppercase tracking-wider text-slate-400">Avg LCP Speed</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero Interactive Hologram / Visual Card -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative w-full aspect-square max-w-md mx-auto rounded-3xl p-[1px] bg-gradient-to-tr from-neon-cyan via-white/20 to-neon-orange shadow-2xl backdrop-blur-2xl">
+            <div class="w-full h-full bg-obsidian-950/90 rounded-[23px] p-6 flex flex-col justify-between overflow-hidden relative group">
+              <!-- Animated Ambient Grid Pattern inside Card -->
+              <div class="absolute inset-0 bg-cyber-grid opacity-30"></div>
+
+              <!-- Top Status Bar -->
+              <div class="relative z-10 flex items-center justify-between border-b border-white/10 pb-4">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+                  <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+                  <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+                  <span class="font-mono text-xs text-slate-400 ml-2">nexus-core.runtime v4.2</span>
+                </div>
+                <span class="px-2.5 py-0.5 rounded text-[10px] font-mono bg-neon-cyan/10 text-neon-cyan border border-neon-cyan/30">ONLINE</span>
+              </div>
+
+              <!-- Center Holographic Graphic & Interactive Canvas Controller -->
+              <div class="relative z-10 py-6 text-center space-y-4">
+                <div class="w-28 h-28 mx-auto relative flex items-center justify-center">
+                  <div class="absolute inset-0 rounded-full border border-dashed border-neon-cyan/40 animate-spin-slow"></div>
+                  <div class="absolute inset-2 rounded-full border border-neon-orange/40 animate-reverse-spin"></div>
+                  <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-neon-cyan/20 to-neon-orange/20 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-glow-cyan">
+                    <i data-lucide="layers" class="w-8 h-8 text-white animate-pulse"></i>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 class="font-display font-bold text-lg text-white">Dual-Core Synergy</h3>
+                  <p class="text-xs text-slate-400 font-mono mt-1">Design Intuition &bull; Engineering Precision</p>
+                </div>
+
+                <!-- Dual Range Interactive Energy Balancer -->
+                <div class="bg-obsidian-900/80 rounded-xl p-3 border border-white/10 space-y-2 text-left">
+                  <div class="flex justify-between text-xs font-mono">
+                    <span class="text-neon-cyan flex items-center gap-1"><i data-lucide="palette" class="w-3 h-3"></i> Visual Craft</span>
+                    <span class="text-slate-300 font-semibold" id="design-ratio">96%</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-neon-cyan to-blue-500 rounded-full" style="width: 96%"></div>
+                  </div>
+
+                  <div class="flex justify-between text-xs font-mono pt-1">
+                    <span class="text-neon-orange flex items-center gap-1"><i data-lucide="cpu" class="w-3.5 h-3.5"></i> Runtime FPS</span>
+                    <span class="text-slate-300 font-semibold" id="dev-ratio">120 FPS</span>
+                  </div>
+                  <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-neon-orange to-amber-400 rounded-full" style="width: 98%"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card Bottom Action -->
+              <div class="relative z-10 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+                <span class="flex items-center gap-1 text-emerald-400"><i data-lucide="activity" class="w-3.5 h-3.5"></i> WebGL 2.0 Active</span>
+                <span class="text-slate-400">Three.js GPU Pipeline</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. WEB DESIGN SHOWCASE: FIGMA TO LIVE WEBSITE TRANSFORMER -->
+    <section id="web-design" class="py-28 px-6 max-w-7xl mx-auto relative">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-neon-cyan/30 bg-neon-cyan/[0.06] text-neon-cyan font-mono text-xs uppercase tracking-widest font-semibold">
+          <i data-lucide="figma" class="w-3.5 h-3.5"></i> Next-Gen Web Design
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+          From Figma Blueprint <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-sky-400 to-white">Into Award-Winning Reality.</span>
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+          Drag the interactive split handle or toggle modes below to watch architectural Figma design tokens, auto-layouts, and wireframe grids morph dynamically into an animated, high-converting live website.
+        </p>
+
+        <!-- Layout Selector Tabs -->
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-4" id="design-preset-tabs">
+          <button data-preset="saas" class="preset-btn active px-4 py-2 rounded-xl text-xs font-mono font-medium border border-neon-cyan bg-neon-cyan/15 text-white transition-all">
+            01 // AI Cloud SaaS
+          </button>
+          <button data-preset="luxury" class="preset-btn px-4 py-2 rounded-xl text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-400 hover:text-white hover:border-white/20 transition-all">
+            02 // Cyber Automotive
+          </button>
+          <button data-preset="metaverse" class="preset-btn px-4 py-2 rounded-xl text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-400 hover:text-white hover:border-white/20 transition-all">
+            03 // Spatial Studio
+          </button>
+        </div>
+      </div>
+
+      <!-- Interactive Transformer Container -->
+      <div class="relative w-full rounded-3xl border border-white/15 bg-obsidian-950/80 backdrop-blur-2xl shadow-2xl overflow-hidden" id="transformer-card">
+        
+        <!-- Figma & Live Website Toolbar Chrome -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-obsidian-900/90 select-none">
+          <div class="flex items-center gap-4">
+            <!-- Simulated Figma Tools -->
+            <div class="flex items-center gap-1.5 p-1 rounded-lg bg-black/40 border border-white/10">
+              <button class="p-1.5 rounded text-neon-cyan hover:bg-white/10 transition-colors" title="Select (V)"><i data-lucide="mouse-pointer" class="w-4 h-4"></i></button>
+              <button class="p-1.5 rounded text-slate-400 hover:text-white hover:bg-white/10 transition-colors" title="Frame (F)"><i data-lucide="layout" class="w-4 h-4"></i></button>
+              <button class="p-1.5 rounded text-slate-400 hover:text-white hover:bg-white/10 transition-colors" title="Pen (P)"><i data-lucide="pen-tool" class="w-4 h-4"></i></button>
+              <button class="p-1.5 rounded text-slate-400 hover:text-white hover:bg-white/10 transition-colors" title="Inspect (I)"><i data-lucide="scan" class="w-4 h-4"></i></button>
+            </div>
+            <span class="font-mono text-xs text-slate-400 hidden sm:inline">Project: <span class="text-white font-medium" id="figma-filename">Apex_Design_System_v2.fig</span></span>
+          </div>
+
+          <!-- Split / Mode Controller -->
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-mono text-slate-400 hidden md:inline">Comparison:</span>
+            <div class="flex items-center p-1 rounded-xl bg-black/50 border border-white/15">
+              <button id="view-mode-split" class="px-3 py-1 rounded-lg text-xs font-mono font-semibold bg-neon-cyan text-obsidian-950 transition-all">Split Slider</button>
+              <button id="view-mode-figma" class="px-3 py-1 rounded-lg text-xs font-mono font-medium text-slate-300 hover:text-white transition-all">Figma Wireframe</button>
+              <button id="view-mode-live" class="px-3 py-1 rounded-lg text-xs font-mono font-medium text-slate-300 hover:text-white transition-all">Live Production</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Transformer Viewport Area -->
+        <div class="relative w-full h-[580px] sm:h-[640px] select-none overflow-hidden" id="split-stage">
+          
+          <!-- LAYER 1: FIGMA DESIGN CANVAS (BACKGROUND / LEFT) -->
+          <div class="absolute inset-0 figma-canvas overflow-hidden" id="figma-side">
+            <!-- Simulated Figma Canvas Grid & Rulers -->
+            <div class="absolute inset-0 figma-grid"></div>
+
+            <!-- Figma Collaborative Cursors (Floating) -->
+            <div class="figma-cursor cursor-elena" style="top: 25%; left: 18%;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="text-purple-400 drop-shadow">
+                <path d="M5.65 3.15L18.8 11.2L12.5 13L9.6 18.9L5.65 3.15Z" fill="currentColor"/>
+              </svg>
+              <span class="figma-badge bg-purple-500 text-white">Elena // Lead UI</span>
+            </div>
+
+            <div class="figma-cursor cursor-marcus" style="top: 65%; left: 72%;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" class="text-neon-cyan drop-shadow">
+                <path d="M5.65 3.15L18.8 11.2L12.5 13L9.6 18.9L5.65 3.15Z" fill="currentColor"/>
+              </svg>
+              <span class="figma-badge bg-neon-cyan text-obsidian-950 font-semibold">Marcus // Art Director</span>
+            </div>
+
+            <!-- Figma Frame Canvas -->
+            <div class="max-w-4xl mx-auto mt-12 p-8 border border-blue-500/50 bg-[#1e1e28]/70 rounded-2xl relative shadow-2xl">
+              <!-- Frame Selection Marker -->
+              <div class="absolute -top-6 left-0 px-2 py-0.5 bg-blue-500 text-[11px] font-mono text-white rounded-t font-semibold flex items-center gap-1.5">
+                <i data-lucide="frame" class="w-3 h-3"></i> Frame: Hero_Desktop_1440px
+              </div>
+              <div class="absolute -top-2 -left-2 w-3 h-3 border-2 border-blue-500 bg-white"></div>
+              <div class="absolute -top-2 -right-2 w-3 h-3 border-2 border-blue-500 bg-white"></div>
+              <div class="absolute -bottom-2 -left-2 w-3 h-3 border-2 border-blue-500 bg-white"></div>
+              <div class="absolute -bottom-2 -right-2 w-3 h-3 border-2 border-blue-500 bg-white"></div>
+
+              <!-- Content Inside Figma Wireframe -->
+              <div class="space-y-6">
+                <!-- Figma Auto-layout Badge -->
+                <div class="flex items-center justify-between">
+                  <div class="px-2.5 py-1 rounded bg-blue-500/10 border border-blue-500/30 text-blue-400 font-mono text-xs flex items-center gap-1">
+                    <span>AutoLayout: Direction=Row, Gap=16px</span>
+                  </div>
+                  <span class="font-mono text-xs text-slate-500">1440 &times; 900</span>
+                </div>
+
+                <!-- Wireframe Heading with inspect lines -->
+                <div class="relative p-3 border border-dashed border-blue-400/40 rounded-lg">
+                  <span class="absolute -top-2.5 right-3 px-1.5 bg-obsidian-900 text-blue-400 text-[10px] font-mono">Type: Syne 64px Bold</span>
+                  <div class="h-10 bg-slate-700/60 rounded-lg w-3/4 animate-pulse"></div>
+                  <div class="h-8 bg-slate-700/40 rounded-lg w-1/2 mt-3"></div>
+                </div>
+
+                <!-- Wireframe Copy & CTA Group -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
+                  <div class="space-y-2">
+                    <div class="h-3 bg-slate-700/40 rounded w-full"></div>
+                    <div class="h-3 bg-slate-700/40 rounded w-5/6"></div>
+                    <div class="h-3 bg-slate-700/40 rounded w-4/6"></div>
+                    <div class="pt-4 flex gap-3">
+                      <div class="h-10 w-32 border-2 border-dashed border-neon-cyan/50 rounded-lg flex items-center justify-center font-mono text-xs text-neon-cyan">
+                        Button: Primary
+                      </div>
+                      <div class="h-10 w-28 border border-dashed border-slate-600 rounded-lg flex items-center justify-center font-mono text-xs text-slate-400">
+                        Ghost Btn
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Wireframe 3D Geometry Box -->
+                  <div class="h-44 rounded-xl border border-dashed border-neon-orange/40 bg-neon-orange/5 flex flex-col items-center justify-center text-center p-4">
+                    <i data-lucide="box" class="w-10 h-10 text-neon-orange/60 mb-2"></i>
+                    <span class="font-mono text-xs text-neon-orange">Component: Spline_WebGL_Mesh</span>
+                    <span class="text-[10px] text-slate-500 font-mono mt-1">Transform: rotX(15deg) rotY(30deg)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- LAYER 2: LIVE PRODUCTION WEBSITE (FOREGROUND / CLIPPED BY SLIDER) -->
+          <div class="absolute inset-0 live-canvas overflow-hidden" id="live-side" style="clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%);">
+            <!-- Rendered Website Experience -->
+            <div class="absolute inset-0 bg-gradient-to-br from-obsidian-950 via-[#0B0F1C] to-obsidian-900 p-8 flex flex-col justify-center">
+              
+              <!-- Ambient Rendered Glow -->
+              <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-neon-cyan/15 rounded-full blur-3xl pointer-events-none"></div>
+              <div class="absolute bottom-1/4 right-1/3 w-80 h-80 bg-neon-orange/15 rounded-full blur-3xl pointer-events-none"></div>
+
+              <div class="max-w-4xl mx-auto w-full p-8 rounded-3xl bg-white/[0.04] border border-white/20 backdrop-blur-2xl shadow-2xl relative">
+                
+                <!-- Live Tag -->
+                <div class="flex items-center justify-between mb-6">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="font-mono text-xs uppercase tracking-wider text-emerald-400 font-bold">100% Production Live</span>
+                  </div>
+                  <span class="px-3 py-1 rounded-full text-xs font-mono bg-neon-orange/15 text-neon-orange border border-neon-orange/30">CSS 3D Active</span>
+                </div>
+
+                <!-- Live Rendered Hero Content -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                  <div class="md:col-span-7 space-y-4">
+                    <div class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-neon-cyan">
+                      <i data-lucide="zap" class="w-3.5 h-3.5"></i> Autonomous Cloud Intelligence
+                    </div>
+                    <h3 class="text-2xl sm:text-4xl font-display font-extrabold text-white tracking-tight leading-snug" id="live-preset-title">
+                      The Operating System <br>
+                      <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-orange">For Deep Neural Scale.</span>
+                    </h3>
+                    <p class="text-sm text-slate-300 leading-relaxed" id="live-preset-desc">
+                      Harness ultra-fast distributed compute clusters with real-time GPU telemetry, instant failover, and zero-latency synthesis.
+                    </p>
+                    <div class="flex items-center gap-3 pt-2">
+                      <button class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-cyan to-blue-600 text-obsidian-950 font-display font-bold text-xs uppercase tracking-wider shadow-glow-cyan hover:scale-105 transition-transform">
+                        Launch Console
+                      </button>
+                      <button class="px-4 py-2.5 rounded-xl border border-white/20 hover:bg-white/10 text-white font-mono text-xs transition-colors">
+                        Documentation &rarr;
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Live 3D Glass Sphere / Mesh Visualization -->
+                  <div class="md:col-span-5 relative flex items-center justify-center">
+                    <div class="relative w-44 h-44 rounded-2xl bg-gradient-to-br from-neon-cyan/20 via-white/5 to-neon-orange/20 border border-white/30 backdrop-blur-xl p-4 flex flex-col justify-between shadow-glow-sm transform hover:rotate-6 hover:scale-105 transition-transform duration-500">
+                      <div class="flex justify-between items-center text-xs font-mono text-slate-300">
+                        <span>CLUSTER_01</span>
+                        <span class="text-emerald-400">99.99%</span>
+                      </div>
+                      <div class="text-center py-4">
+                        <div class="text-2xl font-extrabold font-display text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-orange">
+                          3.4 PFLOPS
+                        </div>
+                        <div class="text-[10px] font-mono text-slate-400">Realtime Throughput</div>
+                      </div>
+                      <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div class="bg-gradient-to-r from-neon-cyan to-neon-orange h-full w-4/5 animate-pulse"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- DRAGGABLE SPLIT SLIDER BAR -->
+          <div class="absolute top-0 bottom-0 w-1 bg-gradient-to-b from-neon-cyan via-white to-neon-orange z-30 cursor-ew-resize select-none" id="split-slider" style="left: 50%;">
+            <!-- Handle Grip Button -->
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-obsidian-900 border-2 border-white flex items-center justify-center shadow-glow-cyan hover:scale-110 active:scale-95 transition-transform">
+              <i data-lucide="chevrons-left-right" class="w-5 h-5 text-neon-cyan"></i>
+            </div>
+            <!-- Labels -->
+            <span class="absolute top-6 right-3 px-2 py-0.5 rounded bg-black/80 border border-neon-cyan/40 text-[10px] font-mono text-neon-cyan whitespace-nowrap pointer-events-none">Figma Specs</span>
+            <span class="absolute top-6 left-3 px-2 py-0.5 rounded bg-black/80 border border-neon-orange/40 text-[10px] font-mono text-neon-orange whitespace-nowrap pointer-events-none">Live Web</span>
+          </div>
+
+        </div>
+
+        <!-- Transformer Feature Badges Footer -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 border-t border-white/10 bg-obsidian-900/60 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
+          <div class="p-5 flex items-start gap-3">
+            <div class="p-2 rounded-lg bg-neon-cyan/10 border border-neon-cyan/30 text-neon-cyan"><i data-lucide="layout-grid" class="w-5 h-5"></i></div>
+            <div>
+              <h4 class="font-display font-bold text-sm text-white">Pixel-Perfect Token Binding</h4>
+              <p class="text-xs text-slate-400 mt-1">Direct synchronization between Figma variable modes and Tailwind custom themes.</p>
+            </div>
+          </div>
+          <div class="p-5 flex items-start gap-3">
+            <div class="p-2 rounded-lg bg-neon-orange/10 border border-neon-orange/30 text-neon-orange"><i data-lucide="wand-2" class="w-5 h-5"></i></div>
+            <div>
+              <h4 class="font-display font-bold text-sm text-white">Motion Design Physics</h4>
+              <p class="text-xs text-slate-400 mt-1">Smart-animate springs translated into 60fps GPU-accelerated CSS and WebGL transitions.</p>
+            </div>
+          </div>
+          <div class="p-5 flex items-start gap-3">
+            <div class="p-2 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-400"><i data-lucide="sparkle" class="w-5 h-5"></i></div>
+            <div>
+              <h4 class="font-display font-bold text-sm text-white">Aesthetic Innovation</h4>
+              <p class="text-xs text-slate-400 mt-1">Multi-layered glassmorphism, dynamic depth blur, and tailored visual brand identities.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. WEB DEVELOPMENT SHOWCASE: ANIMATED CODE INTO WORKING BROWSER -->
+    <section id="web-development" class="py-28 px-6 max-w-7xl mx-auto relative">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-neon-orange/30 bg-neon-orange/[0.06] text-neon-orange font-mono text-xs uppercase tracking-widest font-semibold">
+          <i data-lucide="terminal" class="w-3.5 h-3.5"></i> Fullstack Engineering
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+          Clean Code Compiled <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-orange via-amber-300 to-white">Into A Live Reactive Interface.</span>
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+          Watch production TypeScript, WebGL shaders, and reactive state compile in real time through our high-speed bundler conduit directly into a functioning interactive browser mockup.
+        </p>
+
+        <!-- IDE File Tabs -->
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-4" id="code-file-tabs">
+          <button data-snippet="component" class="code-tab active px-4 py-2 rounded-xl text-xs font-mono font-medium border border-neon-orange bg-neon-orange/15 text-white transition-all flex items-center gap-2">
+            <i data-lucide="file-code" class="w-3.5 h-3.5 text-neon-orange"></i> InteractiveCard.tsx
+          </button>
+          <button data-snippet="shader" class="code-tab px-4 py-2 rounded-xl text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-400 hover:text-white hover:border-white/20 transition-all flex items-center gap-2">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-neon-cyan"></i> GlowShader.frag
+          </button>
+          <button data-snippet="state" class="code-tab px-4 py-2 rounded-xl text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-400 hover:text-white hover:border-white/20 transition-all flex items-center gap-2">
+            <i data-lucide="cpu" class="w-3.5 h-3.5 text-purple-400"></i> useTelemetry.ts
+          </button>
+        </div>
+      </div>
+
+      <!-- IDE to Browser Two-Column Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        <!-- LEFT: CYBER IDE / CODE EDITOR -->
+        <div class="lg:col-span-6 rounded-3xl border border-white/15 bg-obsidian-950/90 backdrop-blur-2xl shadow-2xl flex flex-col overflow-hidden">
+          <!-- IDE Header Bar -->
+          <div class="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-[#0B0D16]">
+            <div class="flex items-center gap-2">
+              <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
+              <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
+              <span class="font-mono text-xs text-slate-400 ml-2" id="active-filename">InteractiveCard.tsx</span>
+            </div>
+
+            <!-- IDE Action Controls -->
+            <div class="flex items-center gap-2">
+              <button id="run-compile-btn" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-neon-orange to-amber-500 text-obsidian-950 font-mono text-xs font-bold flex items-center gap-1.5 shadow-glow-orange hover:scale-105 active:scale-95 transition-transform">
+                <i data-lucide="play" class="w-3 h-3 fill-current"></i> Recompile
+              </button>
+            </div>
+          </div>
+
+          <!-- Code Viewport with Line Numbers -->
+          <div class="p-6 font-mono text-xs sm:text-[13px] leading-relaxed overflow-x-auto relative flex-1 text-slate-300 min-h-[360px]" id="code-editor-content">
+            <!-- Code content dynamically injected via script.js -->
+            <pre class="overflow-x-auto"><code class="language-typescript" id="code-snippet-display"></code></pre>
+          </div>
+
+          <!-- IDE Terminal & Build Metrics Footer -->
+          <div class="border-t border-white/10 bg-black/60 px-5 py-3 flex items-center justify-between font-mono text-xs">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              <span class="text-slate-400">Vite HMR:</span>
+              <span class="text-emerald-400 font-semibold" id="hmr-status">Ready in 14ms (2 modules)</span>
+            </div>
+            <span class="text-slate-500">TypeScript 5.6 &bull; Strict</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: SIMULATED WORKING BROWSER WINDOW -->
+        <div class="lg:col-span-6 rounded-3xl border border-white/15 bg-obsidian-950/90 backdrop-blur-2xl shadow-2xl flex flex-col overflow-hidden">
+          
+          <!-- Browser Window Chrome -->
+          <div class="px-5 py-3.5 border-b border-white/10 bg-[#0B0D16] space-y-2">
+            <!-- Top Controls & URL Bar -->
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1 text-slate-400">
+                <i data-lucide="arrow-left" class="w-3.5 h-3.5 hover:text-white cursor-pointer"></i>
+                <i data-lucide="arrow-right" class="w-3.5 h-3.5 text-slate-600"></i>
+                <i data-lucide="rotate-cw" id="browser-reload-btn" class="w-3.5 h-3.5 hover:text-neon-cyan cursor-pointer transition-transform"></i>
+              </div>
+
+              <!-- URL Input Box -->
+              <div class="flex-1 bg-obsidian-900 border border-white/10 rounded-lg px-3 py-1 flex items-center justify-between font-mono text-xs text-slate-300">
+                <div class="flex items-center gap-1.5 truncate">
+                  <i data-lucide="lock" class="w-3 h-3 text-emerald-400"></i>
+                  <span class="text-slate-400">https://</span><span class="text-white">nexus-digital.app/demo</span>
+                </div>
+                <span class="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-slate-300">HTTPS</span>
+              </div>
+
+              <!-- Device Viewport Switcher -->
+              <div class="flex items-center gap-1 bg-black/40 border border-white/10 p-1 rounded-lg">
+                <button class="p-1 rounded text-neon-cyan hover:bg-white/10 viewport-btn active" data-viewport="desktop" title="Desktop View"><i data-lucide="monitor" class="w-3.5 h-3.5"></i></button>
+                <button class="p-1 rounded text-slate-400 hover:text-white hover:bg-white/10 viewport-btn" data-viewport="tablet" title="Tablet View"><i data-lucide="tablet" class="w-3.5 h-3.5"></i></button>
+                <button class="p-1 rounded text-slate-400 hover:text-white hover:bg-white/10 viewport-btn" data-viewport="mobile" title="Mobile View"><i data-lucide="smartphone" class="w-3.5 h-3.5"></i></button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Working Interactive Micro-App inside Browser -->
+          <div class="p-6 flex-1 flex flex-col justify-center items-center relative overflow-hidden bg-gradient-to-br from-obsidian-950 via-[#0C101F] to-obsidian-900 transition-all duration-300" id="browser-canvas-area">
+            
+            <!-- Compilation Conduit Animation Overlay -->
+            <div id="compiler-flash" class="absolute inset-0 bg-neon-orange/20 opacity-0 pointer-events-none transition-opacity duration-300 z-20 flex items-center justify-center">
+              <span class="px-4 py-2 rounded-xl bg-obsidian-950/90 border border-neon-orange text-neon-orange font-mono text-xs flex items-center gap-2">
+                <i data-lucide="refresh-cw" class="w-4 h-4 animate-spin"></i> Hot Reloading Code...
+              </span>
+            </div>
+
+            <!-- The Working Interactive UI Component Rendered By Code -->
+            <div id="working-micro-app" class="w-full max-w-sm rounded-2xl p-5 border border-white/20 bg-white/[0.04] backdrop-blur-xl shadow-2xl relative space-y-4 transition-all duration-300 hover:border-neon-cyan/50">
+              
+              <!-- Card Header -->
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-neon-cyan to-neon-orange flex items-center justify-center text-obsidian-950 font-bold font-display text-xs">
+                    NX
+                  </div>
+                  <div>
+                    <h5 class="text-xs font-bold text-white font-display">Quantum Node #84</h5>
+                    <p class="text-[10px] font-mono text-slate-400">Reactive Instance State</p>
+                  </div>
+                </div>
+                <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30" id="micro-state-badge">SYNCED</span>
+              </div>
+
+              <!-- Interactive Controls inside Simulated Component -->
+              <div class="space-y-3 bg-obsidian-900/60 p-3.5 rounded-xl border border-white/10">
+                <div class="flex justify-between items-center text-xs font-mono">
+                  <span class="text-slate-300">Target Velocity:</span>
+                  <span class="text-neon-cyan font-bold" id="micro-velocity-val">740 MHz</span>
+                </div>
+                <!-- Interactive slider inside component -->
+                <input type="range" id="micro-slider" min="100" max="1000" value="740" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-neon-cyan">
+
+                <div class="flex justify-between items-center text-xs font-mono pt-1">
+                  <span class="text-slate-300">GPU Particle Shaders:</span>
+                  <button id="micro-shader-toggle" class="px-2.5 py-1 rounded bg-neon-cyan/15 text-neon-cyan border border-neon-cyan/30 text-[10px] font-bold">ACTIVE</button>
+                </div>
+              </div>
+
+              <!-- Action Trigger inside Component -->
+              <div class="pt-1 flex items-center gap-2">
+                <button id="micro-action-btn" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-neon-cyan to-blue-600 text-obsidian-950 font-display font-bold text-xs uppercase tracking-wider hover:opacity-90 active:scale-95 transition-all">
+                  Dispatch Pulse
+                </button>
+                <div class="p-2 rounded-xl border border-white/10 text-slate-300 hover:text-white cursor-pointer" id="micro-counter-badge" title="Pulses Fired">
+                  <span class="font-mono text-xs text-neon-orange font-bold">12</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Browser DevTools / Performance Ribbon -->
+          <div class="border-t border-white/10 bg-[#0B0D16] px-5 py-3 flex items-center justify-between font-mono text-xs">
+            <span class="text-slate-400 flex items-center gap-1.5"><i data-lucide="gauge" class="w-3.5 h-3.5 text-emerald-400"></i> Lighthouse: <span class="text-emerald-400 font-bold">100 / 100</span></span>
+            <span class="text-slate-400 flex items-center gap-1.5"><i data-lucide="zap" class="w-3.5 h-3.5 text-neon-cyan"></i> Bundle: <span class="text-white font-medium">18.4 KB (gzipped)</span></span>
+            <span class="text-slate-400 hidden sm:flex items-center gap-1.5"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-neon-orange"></i> Zero Vulnerabilities</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. INTERACTIVE SERVICES BENTO-GRID -->
+    <section id="services" class="py-28 px-6 max-w-7xl mx-auto relative">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-neon-cyan/30 bg-neon-cyan/[0.06] text-neon-cyan font-mono text-xs uppercase tracking-widest font-semibold">
+          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Full-Spectrum Capabilities
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+          Tailored Digital Architecture <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-orange">For High-Growth Visionaries.</span>
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+          Explore our signature engineering and design disciplines. Hover over cards to inspect technical capabilities and click to view full deliverables.
+        </p>
+      </div>
+
+      <!-- Bento Grid Layout -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Service 1: Creative UI/UX Architecture -->
+        <div class="bento-card group p-8 rounded-3xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl relative overflow-hidden transition-all duration-500 hover:border-neon-cyan/50 hover:shadow-glow-cyan/20 cursor-pointer" data-service="uiux">
+          <div class="bento-spotlight"></div>
+          <div class="relative z-10 space-y-5">
+            <div class="w-12 h-12 rounded-2xl bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center text-neon-cyan group-hover:scale-110 transition-transform">
+              <i data-lucide="palette" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-mono uppercase tracking-widest text-neon-cyan font-semibold">01 // Creative Direction</span>
+              <h3 class="text-xl font-display font-bold text-white mt-1 group-hover:text-neon-cyan transition-colors">UI/UX &amp; Design Systems</h3>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              We design modular, accessible multi-brand design systems in Figma with atomic components, fluid typography, and bespoke micro-interactions.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Design Tokens</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Motion Choreography</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">WCAG AAA</span>
+            </div>
+            <div class="pt-4 flex items-center text-xs font-mono font-semibold text-neon-cyan gap-1.5 group-hover:translate-x-1 transition-transform">
+              <span>Inspect Deliverables</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 2: Next-Gen Web Development -->
+        <div class="bento-card group p-8 rounded-3xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl relative overflow-hidden transition-all duration-500 hover:border-neon-orange/50 hover:shadow-glow-orange/20 cursor-pointer" data-service="dev">
+          <div class="bento-spotlight"></div>
+          <div class="relative z-10 space-y-5">
+            <div class="w-12 h-12 rounded-2xl bg-neon-orange/10 border border-neon-orange/30 flex items-center justify-center text-neon-orange group-hover:scale-110 transition-transform">
+              <i data-lucide="code" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-mono uppercase tracking-widest text-neon-orange font-semibold">02 // Modern Frontend</span>
+              <h3 class="text-xl font-display font-bold text-white mt-1 group-hover:text-neon-orange transition-colors">React, Next.js &amp; TypeScript</h3>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Engineered with React Server Components, streaming SSR, edge middleware, and ultra-type-safe architectures designed for speed.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Next.js 15</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Tailwind CSS</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Headless CMS</span>
+            </div>
+            <div class="pt-4 flex items-center text-xs font-mono font-semibold text-neon-orange gap-1.5 group-hover:translate-x-1 transition-transform">
+              <span>Inspect Deliverables</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 3: 3D WebGL & Immersive Experiences -->
+        <div class="bento-card group p-8 rounded-3xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl relative overflow-hidden transition-all duration-500 hover:border-purple-500/50 hover:shadow-purple-500/20 cursor-pointer" data-service="webgl">
+          <div class="bento-spotlight"></div>
+          <div class="relative z-10 space-y-5">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+              <i data-lucide="boxes" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-mono uppercase tracking-widest text-purple-400 font-semibold">03 // Immersive Graphics</span>
+              <h3 class="text-xl font-display font-bold text-white mt-1 group-hover:text-purple-400 transition-colors">Three.js &amp; WebGPU 3D</h3>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Breathtaking 3D product configurations, interactive spatial canvas worlds, GLSL custom shaders, and particle physics at smooth 60fps.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Three.js / R3F</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Custom GLSL</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">60 FPS Guarantee</span>
+            </div>
+            <div class="pt-4 flex items-center text-xs font-mono font-semibold text-purple-400 gap-1.5 group-hover:translate-x-1 transition-transform">
+              <span>Inspect Deliverables</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 4: High-Performance Core Web Vitals Optimization -->
+        <div class="bento-card group p-8 rounded-3xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl relative overflow-hidden transition-all duration-500 hover:border-emerald-500/50 hover:shadow-emerald-500/20 cursor-pointer" data-service="speed">
+          <div class="bento-spotlight"></div>
+          <div class="relative z-10 space-y-5">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+              <i data-lucide="gauge" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-mono uppercase tracking-widest text-emerald-400 font-semibold">04 // Speed &amp; Optimization</span>
+              <h3 class="text-xl font-display font-bold text-white mt-1 group-hover:text-emerald-400 transition-colors">Core Web Vitals &amp; Speed</h3>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              We eliminate bundle bloat, engineer smart font fallbacks, optimize modern image formats (AVIF/WebP), and guarantee 95+ Lighthouse scores.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">LCP &lt; 0.5s</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">INP &lt; 50ms</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Edge Caching</span>
+            </div>
+            <div class="pt-4 flex items-center text-xs font-mono font-semibold text-emerald-400 gap-1.5 group-hover:translate-x-1 transition-transform">
+              <span>Inspect Deliverables</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 5: Complex Web Applications & SaaS Dashboards -->
+        <div class="bento-card group p-8 rounded-3xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl relative overflow-hidden transition-all duration-500 hover:border-sky-500/50 hover:shadow-sky-500/20 cursor-pointer" data-service="saas">
+          <div class="bento-spotlight"></div>
+          <div class="relative z-10 space-y-5">
+            <div class="w-12 h-12 rounded-2xl bg-sky-500/10 border border-sky-500/30 flex items-center justify-center text-sky-400 group-hover:scale-110 transition-transform">
+              <i data-lucide="layers-3" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-mono uppercase tracking-widest text-sky-400 font-semibold">05 // Platform Engineering</span>
+              <h3 class="text-xl font-display font-bold text-white mt-1 group-hover:text-sky-400 transition-colors">SaaS &amp; Web Applications</h3>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Full-featured SaaS platforms with authentication, real-time WebSocket notifications, payment gateways, and fluid analytics charts.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Auth0 / Supabase</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Stripe Billing</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Realtime Sync</span>
+            </div>
+            <div class="pt-4 flex items-center text-xs font-mono font-semibold text-sky-400 gap-1.5 group-hover:translate-x-1 transition-transform">
+              <span>Inspect Deliverables</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 6: AI-Powered Digital Interfaces -->
+        <div class="bento-card group p-8 rounded-3xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl relative overflow-hidden transition-all duration-500 hover:border-neon-orange/50 hover:shadow-glow-orange/20 cursor-pointer" data-service="ai">
+          <div class="bento-spotlight"></div>
+          <div class="relative z-10 space-y-5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-neon-cyan/20 to-neon-orange/20 border border-white/20 flex items-center justify-center text-white group-hover:scale-110 transition-transform">
+              <i data-lucide="brain-circuit" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <span class="text-[11px] font-mono uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-orange font-semibold">06 // Next Frontier</span>
+              <h3 class="text-xl font-display font-bold text-white mt-1 group-hover:text-neon-cyan transition-colors">AI-Enhanced Experiences</h3>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Embedding generative AI agents, vector search, streaming LLM chat interfaces, and intelligent algorithmic personalization.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">OpenAI / Gemini SDK</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Vector Embeddings</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Streaming UI</span>
+            </div>
+            <div class="pt-4 flex items-center text-xs font-mono font-semibold text-neon-orange gap-1.5 group-hover:translate-x-1 transition-transform">
+              <span>Inspect Deliverables</span> <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. OUR PROCESS: 5-PHASE INTERACTIVE PIPELINE -->
+    <section id="process" class="py-28 px-6 max-w-7xl mx-auto relative">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-neon-orange/30 bg-neon-orange/[0.06] text-neon-orange font-mono text-xs uppercase tracking-widest font-semibold">
+          <i data-lucide="git-merge" class="w-3.5 h-3.5"></i> Architectural Workflow
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+          The 5-Stage Nexus Pipeline: <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-orange via-amber-300 to-white">Discovery To Hyper-Scale.</span>
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+          Our engineering lifecycle ensures zero friction between creative inception and production deployment. Click each phase to inspect technical milestones.
+        </p>
+      </div>
+
+      <!-- Interactive Process Pipeline -->
+      <div class="relative">
+        <!-- Connecting Glow Line Behind Steps -->
+        <div class="hidden lg:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-neon-cyan via-blue-500 to-neon-orange -translate-y-1/2 z-0 opacity-40"></div>
+
+        <!-- 5 Phase Steps Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 relative z-10" id="process-steps-container">
+          
+          <!-- Phase 1 -->
+          <div class="process-node active p-6 rounded-3xl border border-neon-cyan bg-obsidian-950/90 backdrop-blur-xl transition-all duration-300 cursor-pointer shadow-glow-cyan/20" data-phase="1">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-2xl bg-neon-cyan/20 border border-neon-cyan text-neon-cyan font-mono font-bold text-sm flex items-center justify-center">01</span>
+              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-neon-cyan/15 text-neon-cyan border border-neon-cyan/30">DISCOVERY</span>
+            </div>
+            <h4 class="font-display font-bold text-base text-white">Quantum Discovery</h4>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">Deep market intelligence, brand positioning, user persona mapping, and technical feasibility scoping.</p>
+            <div class="mt-4 pt-4 border-t border-white/10 text-[11px] font-mono text-neon-cyan flex items-center gap-1">
+              <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Spec Blueprint
+            </div>
+          </div>
+
+          <!-- Phase 2 -->
+          <div class="process-node p-6 rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl transition-all duration-300 cursor-pointer hover:border-white/30" data-phase="2">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-2xl bg-white/5 border border-white/20 text-slate-300 font-mono font-bold text-sm flex items-center justify-center">02</span>
+              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-white/10 text-slate-400">DESIGN</span>
+            </div>
+            <h4 class="font-display font-bold text-base text-white">Visual Engineering</h4>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">Figma design systems, auto-layout tokens, 3D asset modeling in Blender, and motion prototypes.</p>
+            <div class="mt-4 pt-4 border-t border-white/10 text-[11px] font-mono text-slate-400 flex items-center gap-1">
+              <i data-lucide="circle-dot" class="w-3.5 h-3.5"></i> Hi-Fi Interactive UI
+            </div>
+          </div>
+
+          <!-- Phase 3 -->
+          <div class="process-node p-6 rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl transition-all duration-300 cursor-pointer hover:border-white/30" data-phase="3">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-2xl bg-white/5 border border-white/20 text-slate-300 font-mono font-bold text-sm flex items-center justify-center">03</span>
+              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-white/10 text-slate-400">DEV</span>
+            </div>
+            <h4 class="font-display font-bold text-base text-white">Fullstack Build</h4>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">Clean TypeScript coding, Three.js shaders, reactive state architectures, and headless CMS integrations.</p>
+            <div class="mt-4 pt-4 border-t border-white/10 text-[11px] font-mono text-slate-400 flex items-center gap-1">
+              <i data-lucide="circle-dot" class="w-3.5 h-3.5"></i> Clean Repository
+            </div>
+          </div>
+
+          <!-- Phase 4 -->
+          <div class="process-node p-6 rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl transition-all duration-300 cursor-pointer hover:border-white/30" data-phase="4">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-2xl bg-white/5 border border-white/20 text-slate-300 font-mono font-bold text-sm flex items-center justify-center">04</span>
+              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-white/10 text-slate-400">TEST</span>
+            </div>
+            <h4 class="font-display font-bold text-base text-white">QA &amp; Hardening</h4>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">End-to-end automated tests, 100/100 Core Web Vitals audits, cross-browser matrices, and security checks.</p>
+            <div class="mt-4 pt-4 border-t border-white/10 text-[11px] font-mono text-slate-400 flex items-center gap-1">
+              <i data-lucide="circle-dot" class="w-3.5 h-3.5"></i> 99+ Lighthouse
+            </div>
+          </div>
+
+          <!-- Phase 5 -->
+          <div class="process-node p-6 rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl transition-all duration-300 cursor-pointer hover:border-white/30" data-phase="5">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-2xl bg-neon-orange/20 border border-neon-orange text-neon-orange font-mono font-bold text-sm flex items-center justify-center">05</span>
+              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-neon-orange/15 text-neon-orange border border-neon-orange/30">SCALE</span>
+            </div>
+            <h4 class="font-display font-bold text-base text-white">Edge Deployment</h4>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">Global CDN edge routing, real-time analytics telemetry, automated CI/CD pipeline, and continuous evolution.</p>
+            <div class="mt-4 pt-4 border-t border-white/10 text-[11px] font-mono text-neon-orange flex items-center gap-1">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> Global Launch
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Expanded Phase Details Dynamic HUD Panel -->
+        <div id="process-hud-detail" class="mt-10 p-6 sm:p-8 rounded-3xl border border-white/15 bg-obsidian-950/90 backdrop-blur-2xl transition-all duration-300">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-6">
+            <div class="flex items-center gap-3">
+              <span class="px-3 py-1 rounded-xl bg-neon-cyan/20 text-neon-cyan font-mono text-xs font-bold border border-neon-cyan/40" id="hud-phase-num">PHASE 01</span>
+              <h3 class="text-xl sm:text-2xl font-display font-bold text-white" id="hud-phase-title">Quantum Discovery &amp; Architectural Strategy</h3>
+            </div>
+            <div class="flex items-center gap-2 font-mono text-xs text-slate-400">
+              <span class="text-emerald-400 font-bold flex items-center gap-1"><i data-lucide="check" class="w-3.5 h-3.5"></i> Estimated Duration:</span>
+              <span class="text-white" id="hud-phase-time">1 - 2 Weeks</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
+            <div class="space-y-2">
+              <span class="text-xs font-mono uppercase tracking-wider text-neon-cyan font-semibold">Core Deliverables</span>
+              <ul class="text-xs text-slate-300 space-y-1.5 font-mono" id="hud-deliverables">
+                <li>• Technical Architecture Specification</li>
+                <li>• Competitor Conversion Benchmark</li>
+                <li>• Design Language System Blueprint</li>
+              </ul>
+            </div>
+            <div class="space-y-2">
+              <span class="text-xs font-mono uppercase tracking-wider text-neon-orange font-semibold">Tooling &amp; Stack</span>
+              <ul class="text-xs text-slate-300 space-y-1.5 font-mono" id="hud-tooling">
+                <li>• Figma Enterprise &bull; FigJam</li>
+                <li>• Linear &bull; Notion Architecture Hub</li>
+                <li>• Lighthouse Performance Benchmarking</li>
+              </ul>
+            </div>
+            <div class="space-y-2">
+              <span class="text-xs font-mono uppercase tracking-wider text-purple-400 font-semibold">Client Touchpoints</span>
+              <p class="text-xs text-slate-300 leading-relaxed" id="hud-touchpoints">
+                Weekly asynchronous video walkthroughs + two deep-dive collaborative alignment sessions with your core team.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 6. FEATURED PROJECTS PORTFOLIO SHOWCASE -->
+    <section id="projects" class="py-28 px-6 max-w-7xl mx-auto relative">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+        <div class="space-y-4 max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-neon-cyan/30 bg-neon-cyan/[0.06] text-neon-cyan font-mono text-xs uppercase tracking-widest font-semibold">
+            <i data-lucide="award" class="w-3.5 h-3.5"></i> Proven Impact
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+            Flagship Productions <br>
+            <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-orange">Engineered For Category Leaders.</span>
+          </h2>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="flex flex-wrap items-center gap-2" id="project-filters">
+          <button data-filter="all" class="filter-btn active px-4 py-2 rounded-xl text-xs font-mono font-semibold border border-neon-cyan bg-neon-cyan/15 text-white transition-all">All Works</button>
+          <button data-filter="design" class="filter-btn px-4 py-2 rounded-xl text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-400 hover:text-white transition-all">Web Design</button>
+          <button data-filter="dev" class="filter-btn px-4 py-2 rounded-xl text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-400 hover:text-white transition-all">Web Development</button>
+          <button data-filter="webgl" class="filter-btn px-4 py-2 rounded-xl text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-400 hover:text-white transition-all">3D / WebGL</button>
+        </div>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projects-grid">
+        
+        <!-- Project 1: AETHER CLOUD -->
+        <div class="project-card group rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:border-neon-cyan/50 hover:shadow-glow-cyan/20" data-category="dev design">
+          <div class="relative h-64 sm:h-72 overflow-hidden bg-gradient-to-br from-obsidian-900 via-sky-950/40 to-obsidian-950 p-6 flex flex-col justify-between">
+            <!-- Simulated High-Tech UI Project Visual -->
+            <div class="absolute inset-0 bg-cyber-grid opacity-40"></div>
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 rounded-full bg-neon-cyan/20 blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-[10px] font-mono bg-black/60 border border-white/15 text-slate-300">Enterprise Cloud</span>
+              <span class="px-3 py-1 rounded-full text-[10px] font-mono bg-neon-cyan/15 text-neon-cyan border border-neon-cyan/30 flex items-center gap-1">
+                <i data-lucide="award" class="w-3 h-3"></i> Site of The Day
+              </span>
+            </div>
+
+            <!-- Visual Preview Graphic Elements -->
+            <div class="relative z-10 p-5 rounded-2xl bg-white/[0.05] border border-white/15 backdrop-blur-xl space-y-2 group-hover:scale-[1.02] transition-transform duration-500">
+              <div class="flex justify-between items-center text-xs font-mono text-neon-cyan">
+                <span>Aether Data Fabric</span>
+                <span class="text-white font-bold">+340% User Signups</span>
+              </div>
+              <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-neon-cyan to-blue-500 rounded-full w-4/5"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-8 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-2xl font-display font-bold text-white group-hover:text-neon-cyan transition-colors">Aether Cloud Telemetry</h3>
+              <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-400 group-hover:text-neon-cyan group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Complete rebrand and Next.js web application for an autonomous cloud intelligence platform, cutting page load to 180ms.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Next.js 15</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">TypeScript</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">TailwindCSS</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Figma Tokens</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: VALKYRIE SPATIAL -->
+        <div class="project-card group rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:border-neon-orange/50 hover:shadow-glow-orange/20" data-category="webgl design">
+          <div class="relative h-64 sm:h-72 overflow-hidden bg-gradient-to-br from-obsidian-900 via-amber-950/40 to-obsidian-950 p-6 flex flex-col justify-between">
+            <div class="absolute inset-0 bg-cyber-grid opacity-40"></div>
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 rounded-full bg-neon-orange/20 blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-[10px] font-mono bg-black/60 border border-white/15 text-slate-300">Spatial Audio &bull; 3D</span>
+              <span class="px-3 py-1 rounded-full text-[10px] font-mono bg-neon-orange/15 text-neon-orange border border-neon-orange/30 flex items-center gap-1">
+                <i data-lucide="star" class="w-3 h-3"></i> FWA of the Month
+              </span>
+            </div>
+
+            <div class="relative z-10 p-5 rounded-2xl bg-white/[0.05] border border-white/15 backdrop-blur-xl space-y-2 group-hover:scale-[1.02] transition-transform duration-500">
+              <div class="flex justify-between items-center text-xs font-mono text-neon-orange">
+                <span>Valkyrie Spatial Synth</span>
+                <span class="text-white font-bold">120 FPS WebGPU</span>
+              </div>
+              <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-neon-orange to-rose-500 rounded-full w-full"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-8 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-2xl font-display font-bold text-white group-hover:text-neon-orange transition-colors">Valkyrie Spatial Audio</h3>
+              <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-400 group-hover:text-neon-orange group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              An interactive 3D WebGL showroom with spatial audio waveforms, procedural particle emitters, and real-time product customization.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Three.js</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">GLSL Shaders</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Web Audio API</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Blender 3D</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: CHRONOS LUXURY -->
+        <div class="project-card group rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:border-purple-500/50 hover:shadow-purple-500/20" data-category="design dev">
+          <div class="relative h-64 sm:h-72 overflow-hidden bg-gradient-to-br from-obsidian-900 via-purple-950/40 to-obsidian-950 p-6 flex flex-col justify-between">
+            <div class="absolute inset-0 bg-cyber-grid opacity-40"></div>
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 rounded-full bg-purple-500/20 blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-[10px] font-mono bg-black/60 border border-white/15 text-slate-300">Luxury E-Commerce</span>
+              <span class="px-3 py-1 rounded-full text-[10px] font-mono bg-purple-500/15 text-purple-400 border border-purple-500/30 flex items-center gap-1">
+                <i data-lucide="trending-up" class="w-3 h-3"></i> $28M+ GMV
+              </span>
+            </div>
+
+            <div class="relative z-10 p-5 rounded-2xl bg-white/[0.05] border border-white/15 backdrop-blur-xl space-y-2 group-hover:scale-[1.02] transition-transform duration-500">
+              <div class="flex justify-between items-center text-xs font-mono text-purple-400">
+                <span>Chronos Horology Flagship</span>
+                <span class="text-white font-bold">4.8% Conversion Rate</span>
+              </div>
+              <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-purple-500 to-indigo-500 rounded-full w-5/6"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-8 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-2xl font-display font-bold text-white group-hover:text-purple-400 transition-colors">Chronos Haute Horology</h3>
+              <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-400 group-hover:text-purple-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Ultra-fast headless Shopify flagship with smooth fluid transitions, interactive movement mechanics, and micro-interactions.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Headless Shopify</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Next.js</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">GSAP Motion</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: SYNAPSE NEURAL AI -->
+        <div class="project-card group rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl overflow-hidden transition-all duration-500 hover:border-neon-cyan/50 hover:shadow-glow-cyan/20" data-category="dev webgl">
+          <div class="relative h-64 sm:h-72 overflow-hidden bg-gradient-to-br from-obsidian-900 via-emerald-950/40 to-obsidian-950 p-6 flex flex-col justify-between">
+            <div class="absolute inset-0 bg-cyber-grid opacity-40"></div>
+            <div class="absolute -right-10 -bottom-10 w-64 h-64 rounded-full bg-emerald-500/20 blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 flex items-center justify-between">
+              <span class="px-3 py-1 rounded-full text-[10px] font-mono bg-black/60 border border-white/15 text-slate-300">AI Platform</span>
+              <span class="px-3 py-1 rounded-full text-[10px] font-mono bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                <i data-lucide="zap" class="w-3 h-3"></i> 40ms Edge Latency
+              </span>
+            </div>
+
+            <div class="relative z-10 p-5 rounded-2xl bg-white/[0.05] border border-white/15 backdrop-blur-xl space-y-2 group-hover:scale-[1.02] transition-transform duration-500">
+              <div class="flex justify-between items-center text-xs font-mono text-emerald-400">
+                <span>Synapse LLM Cluster</span>
+                <span class="text-white font-bold">1.2M Daily Tokens</span>
+              </div>
+              <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                <div class="h-full bg-gradient-to-r from-emerald-400 to-neon-cyan rounded-full w-11/12"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-8 space-y-4">
+            <div class="flex items-center justify-between">
+              <h3 class="text-2xl font-display font-bold text-white group-hover:text-emerald-400 transition-colors">Synapse Neural Agent Hub</h3>
+              <i data-lucide="arrow-up-right" class="w-5 h-5 text-slate-400 group-hover:text-emerald-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all"></i>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed">
+              Real-time generative AI platform featuring streaming markdown rendering, interactive vector visualization, and multi-agent orchestration.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-2">
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">React 19</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">Vercel AI SDK</span>
+              <span class="px-2.5 py-1 rounded-md text-[11px] font-mono bg-white/5 border border-white/10 text-slate-300">WebGL Particles</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 7. TECHNOLOGIES & INTERACTIVE TECH MATRIX -->
+    <section id="technologies" class="py-28 px-6 max-w-7xl mx-auto relative">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-neon-cyan/30 bg-neon-cyan/[0.06] text-neon-cyan font-mono text-xs uppercase tracking-widest font-semibold">
+          <i data-lucide="cpu" class="w-3.5 h-3.5"></i> Modern Toolchain
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+          Battle-Tested Technologies <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-orange">Powering Infinite Scale.</span>
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+          We curate the vanguard of modern web standards. Zero legacy cruft, 100% bleeding-edge velocity.
+        </p>
+
+        <!-- Tech Category Filters -->
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-4" id="tech-filters">
+          <button data-cat="all" class="tech-filter-btn active px-4 py-2 rounded-xl text-xs font-mono font-semibold border border-neon-cyan bg-neon-cyan/15 text-white transition-all">All Ecosystems</button>
+          <button data-cat="frontend" class="tech-filter-btn px-4 py-2 rounded-xl text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-400 hover:text-white transition-all">Frontend &amp; Runtime</button>
+          <button data-cat="creative" class="tech-filter-btn px-4 py-2 rounded-xl text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-400 hover:text-white transition-all">3D &amp; Creative</button>
+          <button data-cat="design" class="tech-filter-btn px-4 py-2 rounded-xl text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-400 hover:text-white transition-all">Design Systems</button>
+          <button data-cat="cloud" class="tech-filter-btn px-4 py-2 rounded-xl text-xs font-mono font-medium border border-white/10 bg-white/[0.03] text-slate-400 hover:text-white transition-all">Cloud &amp; Edge</button>
+        </div>
+      </div>
+
+      <!-- Tech Interactive Matrix Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6" id="tech-nodes-grid">
+        
+        <!-- Next.js -->
+        <div class="tech-node group p-6 rounded-2xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl hover:border-neon-cyan/50 hover:shadow-glow-cyan/10 transition-all duration-300 cursor-default" data-cat="frontend">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-neon-cyan font-display font-extrabold text-xs">▲</span>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">v15.2</span>
+          </div>
+          <h4 class="font-display font-bold text-base text-white group-hover:text-neon-cyan transition-colors">Next.js</h4>
+          <p class="text-xs text-slate-400 mt-1 font-mono">React Server Components, edge SSR, and TurboPack.</p>
+        </div>
+
+        <!-- React -->
+        <div class="tech-node group p-6 rounded-2xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl hover:border-neon-cyan/50 hover:shadow-glow-cyan/10 transition-all duration-300 cursor-default" data-cat="frontend">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-8 h-8 rounded-lg bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center text-neon-cyan"><i data-lucide="atom" class="w-4 h-4"></i></span>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">v19.0</span>
+          </div>
+          <h4 class="font-display font-bold text-base text-white group-hover:text-neon-cyan transition-colors">React 19</h4>
+          <p class="text-xs text-slate-400 mt-1 font-mono">Concurrent mode, compiler optimizations, Actions API.</p>
+        </div>
+
+        <!-- Three.js -->
+        <div class="tech-node group p-6 rounded-2xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl hover:border-neon-orange/50 hover:shadow-glow-orange/10 transition-all duration-300 cursor-default" data-cat="creative">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-8 h-8 rounded-lg bg-neon-orange/10 border border-neon-orange/30 flex items-center justify-center text-neon-orange"><i data-lucide="box" class="w-4 h-4"></i></span>
+            <span class="text-[10px] font-mono text-neon-orange bg-neon-orange/10 px-2 py-0.5 rounded border border-neon-orange/20">WebGL 2</span>
+          </div>
+          <h4 class="font-display font-bold text-base text-white group-hover:text-neon-orange transition-colors">Three.js / WebGL</h4>
+          <p class="text-xs text-slate-400 mt-1 font-mono">Custom GLSL shaders, camera physics, and post-processing.</p>
+        </div>
+
+        <!-- WebGPU -->
+        <div class="tech-node group p-6 rounded-2xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl hover:border-neon-orange/50 hover:shadow-glow-orange/10 transition-all duration-300 cursor-default" data-cat="creative">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-8 h-8 rounded-lg bg-neon-orange/10 border border-neon-orange/30 flex items-center justify-center text-neon-orange"><i data-lucide="sparkles" class="w-4 h-4"></i></span>
+            <span class="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Next-Gen</span>
+          </div>
+          <h4 class="font-display font-bold text-base text-white group-hover:text-neon-orange transition-colors">WebGPU API</h4>
+          <p class="text-xs text-slate-400 mt-1 font-mono">Native GPU compute shaders with unprecedented frame rates.</p>
+        </div>
+
+        <!-- TypeScript -->
+        <div class="tech-node group p-6 rounded-2xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl hover:border-blue-500/50 hover:shadow-blue-500/10 transition-all duration-300 cursor-default" data-cat="frontend">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 font-mono font-bold text-xs">TS</span>
+            <span class="text-[10px] font-mono text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">v5.6</span>
+          </div>
+          <h4 class="font-display font-bold text-base text-white group-hover:text-blue-400 transition-colors">TypeScript</h4>
+          <p class="text-xs text-slate-400 mt-1 font-mono">End-to-end type safety, strict compile checks, and zero runtime overhead.</p>
+        </div>
+
+        <!-- Tailwind CSS -->
+        <div class="tech-node group p-6 rounded-2xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl hover:border-neon-cyan/50 hover:shadow-glow-cyan/10 transition-all duration-300 cursor-default" data-cat="frontend">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-8 h-8 rounded-lg bg-neon-cyan/10 border border-neon-cyan/30 flex items-center justify-center text-neon-cyan"><i data-lucide="wind" class="w-4 h-4"></i></span>
+            <span class="text-[10px] font-mono text-neon-cyan bg-neon-cyan/10 px-2 py-0.5 rounded border border-neon-cyan/20">v4.0</span>
+          </div>
+          <h4 class="font-display font-bold text-base text-white group-hover:text-neon-cyan transition-colors">Tailwind CSS</h4>
+          <p class="text-xs text-slate-400 mt-1 font-mono">Modern CSS engine, container queries, and sub-millisecond compile.</p>
+        </div>
+
+        <!-- Figma -->
+        <div class="tech-node group p-6 rounded-2xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl hover:border-purple-500/50 hover:shadow-purple-500/10 transition-all duration-300 cursor-default" data-cat="design">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-purple-400"><i data-lucide="figma" class="w-4 h-4"></i></span>
+            <span class="text-[10px] font-mono text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">Tokens</span>
+          </div>
+          <h4 class="font-display font-bold text-base text-white group-hover:text-purple-400 transition-colors">Figma Enterprise</h4>
+          <p class="text-xs text-slate-400 mt-1 font-mono">Variables, design token pipelines, and interactive prototype specs.</p>
+        </div>
+
+        <!-- Edge Cloud & Vercel -->
+        <div class="tech-node group p-6 rounded-2xl border border-white/10 bg-obsidian-950/70 backdrop-blur-xl hover:border-emerald-500/50 hover:shadow-emerald-500/10 transition-all duration-300 cursor-default" data-cat="cloud">
+          <div class="flex items-center justify-between mb-3">
+            <span class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400"><i data-lucide="cloud-lightning" class="w-4 h-4"></i></span>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Global</span>
+          </div>
+          <h4 class="font-display font-bold text-base text-white group-hover:text-emerald-400 transition-colors">Edge Infrastructure</h4>
+          <p class="text-xs text-slate-400 mt-1 font-mono">Global edge nodes, multi-region database sync, and zero cold starts.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 8. TEAM SUPERMINDS SECTION -->
+    <section id="team" class="py-28 px-6 max-w-7xl mx-auto relative">
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-neon-orange/30 bg-neon-orange/[0.06] text-neon-orange font-mono text-xs uppercase tracking-widest font-semibold">
+          <i data-lucide="users" class="w-3.5 h-3.5"></i> Collective Minds
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight">
+          The Creative Technologists <br>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-orange via-amber-300 to-white">Behind The Masterpieces.</span>
+        </h2>
+        <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+          Specialists working at the intersection of mathematical engineering and uncompromising visual art.
+        </p>
+      </div>
+
+      <!-- Team Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        
+        <!-- Team 1 -->
+        <div class="team-card group p-6 rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl relative overflow-hidden transition-all duration-300 hover:border-neon-cyan/50 hover:shadow-glow-cyan/20">
+          <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-gradient-to-tr from-obsidian-900 to-sky-950/60 p-1 flex items-center justify-center border border-white/10">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-neon-cyan/30 to-blue-600/30 flex items-center justify-center border border-neon-cyan/50 group-hover:scale-110 transition-transform">
+              <i data-lucide="cpu" class="w-10 h-10 text-neon-cyan"></i>
+            </div>
+            <div class="absolute bottom-3 left-3 px-2 py-0.5 rounded bg-black/60 border border-white/10 text-[10px] font-mono text-neon-cyan">
+              EXP // 12 YRS
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-neon-cyan font-semibold">Founding Director</span>
+            <h4 class="font-display font-bold text-lg text-white">Soren Vance</h4>
+            <p class="text-xs text-slate-400 font-mono">Lead Creative Technologist &amp; Architect</p>
+            <p class="text-xs text-slate-300 pt-2 leading-relaxed">
+              Pioneered reactive WebGL design systems for Fortune 50 platforms. 8&times; Awwwards Site of the Day winner.
+            </p>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+            <span>Specialty:</span>
+            <span class="text-white">Three.js &bull; Systems</span>
+          </div>
+        </div>
+
+        <!-- Team 2 -->
+        <div class="team-card group p-6 rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl relative overflow-hidden transition-all duration-300 hover:border-neon-orange/50 hover:shadow-glow-orange/20">
+          <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-gradient-to-tr from-obsidian-900 to-amber-950/60 p-1 flex items-center justify-center border border-white/10">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-neon-orange/30 to-amber-600/30 flex items-center justify-center border border-neon-orange/50 group-hover:scale-110 transition-transform">
+              <i data-lucide="palette" class="w-10 h-10 text-neon-orange"></i>
+            </div>
+            <div class="absolute bottom-3 left-3 px-2 py-0.5 rounded bg-black/60 border border-white/10 text-[10px] font-mono text-neon-orange">
+              EXP // 10 YRS
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-neon-orange font-semibold">Design Principle</span>
+            <h4 class="font-display font-bold text-lg text-white">Elena Rostova</h4>
+            <p class="text-xs text-slate-400 font-mono">Head of Product Design &amp; UI/UX</p>
+            <p class="text-xs text-slate-300 pt-2 leading-relaxed">
+              Obsessed with micro-interactions, spatial typography, and high-conversion UX psychology that drives user retention.
+            </p>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+            <span>Specialty:</span>
+            <span class="text-white">Figma &bull; Micro-UX</span>
+          </div>
+        </div>
+
+        <!-- Team 3 -->
+        <div class="team-card group p-6 rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl relative overflow-hidden transition-all duration-300 hover:border-purple-500/50 hover:shadow-purple-500/20">
+          <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-gradient-to-tr from-obsidian-900 to-purple-950/60 p-1 flex items-center justify-center border border-white/10">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-purple-500/30 to-indigo-600/30 flex items-center justify-center border border-purple-500/50 group-hover:scale-110 transition-transform">
+              <i data-lucide="boxes" class="w-10 h-10 text-purple-400"></i>
+            </div>
+            <div class="absolute bottom-3 left-3 px-2 py-0.5 rounded bg-black/60 border border-white/10 text-[10px] font-mono text-purple-400">
+              EXP // 8 YRS
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-purple-400 font-semibold">Shader Master</span>
+            <h4 class="font-display font-bold text-lg text-white">Kenji Takahashi</h4>
+            <p class="text-xs text-slate-400 font-mono">Principal WebGPU &amp; 3D Engineer</p>
+            <p class="text-xs text-slate-300 pt-2 leading-relaxed">
+              Mathematical wizard converting complex raymarching algorithms into fluid in-browser spatial graphics.
+            </p>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+            <span>Specialty:</span>
+            <span class="text-white">GLSL &bull; WebGPU</span>
+          </div>
+        </div>
+
+        <!-- Team 4 -->
+        <div class="team-card group p-6 rounded-3xl border border-white/10 bg-obsidian-950/80 backdrop-blur-xl relative overflow-hidden transition-all duration-300 hover:border-emerald-500/50 hover:shadow-emerald-500/20">
+          <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-6 bg-gradient-to-tr from-obsidian-900 to-emerald-950/60 p-1 flex items-center justify-center border border-white/10">
+            <div class="w-24 h-24 rounded-full bg-gradient-to-br from-emerald-500/30 to-teal-600/30 flex items-center justify-center border border-emerald-500/50 group-hover:scale-110 transition-transform">
+              <i data-lucide="gauge" class="w-10 h-10 text-emerald-400"></i>
+            </div>
+            <div class="absolute bottom-3 left-3 px-2 py-0.5 rounded bg-black/60 border border-white/10 text-[10px] font-mono text-emerald-400">
+              EXP // 9 YRS
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-emerald-400 font-semibold">Performance Titan</span>
+            <h4 class="font-display font-bold text-lg text-white">Zara Sterling</h4>
+            <p class="text-xs text-slate-400 font-mono">Director of Cloud &amp; Systems Speed</p>
+            <p class="text-xs text-slate-300 pt-2 leading-relaxed">
+              Ex-Vercel edge engineer focused on sub-second TTFB, predictive prefetching, and resilient serverless architectures.
+            </p>
+          </div>
+
+          <div class="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+            <span>Specialty:</span>
+            <span class="text-white">Next.js &bull; Edge Ops</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 9. "LET'S BUILD YOUR WEBSITE" CTA & INTERACTIVE PROJECT ESTIMATOR -->
+    <section id="cta" class="py-28 px-6 max-w-7xl mx-auto relative">
+      <!-- Background Ambient Glow -->
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon-cyan/5 to-neon-orange/10 pointer-events-none rounded-3xl"></div>
+
+      <div class="relative rounded-3xl border border-white/15 bg-obsidian-950/90 backdrop-blur-2xl p-8 sm:p-12 lg:p-16 shadow-2xl overflow-hidden">
+        <!-- Corner Cyber Badges -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-neon-cyan/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-neon-orange/15 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start relative z-10">
+          
+          <!-- Left Column: High-Impact Copy & Project Scope Estimator -->
+          <div class="lg:col-span-6 space-y-8">
+            <div class="space-y-4">
+              <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-neon-cyan/30 bg-neon-cyan/[0.06] text-neon-cyan font-mono text-xs uppercase tracking-widest font-semibold">
+                <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> High-Velocity Collaboration
+              </div>
+              <h2 class="text-3xl sm:text-5xl font-display font-extrabold text-white tracking-tight leading-tight">
+                Let's Build Your <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan via-white to-neon-orange">Digital Masterpiece.</span>
+              </h2>
+              <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                Whether you need a category-defining brand redesign or a fullstack 3D WebGL web platform, use our interactive estimator below to calculate your timeline and budget parameters.
+              </p>
+            </div>
+
+            <!-- Interactive Project Scope & Budget Calculator -->
+            <div class="p-6 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl space-y-6" id="project-estimator">
+              <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                <span class="font-display font-bold text-sm text-white flex items-center gap-2">
+                  <i data-lucide="calculator" class="w-4 h-4 text-neon-cyan"></i> Real-Time Project Estimator
+                </span>
+                <span class="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">LIVE CALC</span>
+              </div>
+
+              <!-- Scope Selection -->
+              <div class="space-y-2">
+                <label class="block text-xs font-mono text-slate-300">1. Project Discipline:</label>
+                <div class="grid grid-cols-2 gap-2" id="scope-type-buttons">
+                  <button type="button" data-multiplier="1.0" class="scope-btn active p-3 rounded-xl border border-neon-cyan bg-neon-cyan/15 text-left text-xs font-medium text-white transition-all">
+                    <span class="font-bold block">Full Design + Dev</span>
+                    <span class="text-[10px] text-slate-400 font-mono">Figma to Production</span>
+                  </button>
+                  <button type="button" data-multiplier="0.6" class="scope-btn p-3 rounded-xl border border-white/10 bg-black/40 text-left text-xs font-medium text-slate-300 transition-all hover:border-white/20">
+                    <span class="font-bold block">Web Design Only</span>
+                    <span class="text-[10px] text-slate-400 font-mono">UI/UX &amp; Tokens</span>
+                  </button>
+                  <button type="button" data-multiplier="0.75" class="scope-btn p-3 rounded-xl border border-white/10 bg-black/40 text-left text-xs font-medium text-slate-300 transition-all hover:border-white/20">
+                    <span class="font-bold block">Frontend Dev Only</span>
+                    <span class="text-[10px] text-slate-400 font-mono">Next.js &bull; TypeScript</span>
+                  </button>
+                  <button type="button" data-multiplier="1.3" class="scope-btn p-3 rounded-xl border border-white/10 bg-black/40 text-left text-xs font-medium text-slate-300 transition-all hover:border-white/20">
+                    <span class="font-bold block">3D WebGL / Spatial</span>
+                    <span class="text-[10px] text-slate-400 font-mono">Three.js &bull; Shaders</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Scale Slider -->
+              <div class="space-y-2">
+                <div class="flex justify-between text-xs font-mono">
+                  <span class="text-slate-300">2. Website Scale &amp; Pages:</span>
+                  <span class="text-neon-cyan font-bold" id="scale-label">5 - 10 Pages (Mid Flagship)</span>
+                </div>
+                <input type="range" id="scale-slider" min="1" max="4" value="2" class="w-full h-1.5 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-neon-cyan">
+              </div>
+
+              <!-- Estimated Output Box -->
+              <div class="p-4 rounded-xl bg-obsidian-900 border border-white/10 flex items-center justify-between">
+                <div>
+                  <span class="text-[10px] font-mono text-slate-400 uppercase">Estimated Investment</span>
+                  <div class="text-2xl font-display font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-neon-orange" id="estimated-price">
+                    $18,000 - $28,000
+                  </div>
+                </div>
+                <div class="text-right">
+                  <span class="text-[10px] font-mono text-slate-400 uppercase">Production Timeline</span>
+                  <div class="text-sm font-mono font-bold text-white" id="estimated-time">
+                    4 - 6 Weeks
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Direct Contact & Trust Badges -->
+            <div class="flex flex-wrap items-center gap-6 text-xs font-mono text-slate-400">
+              <span class="flex items-center gap-1.5"><i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i> Strict NDA Guaranteed</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="zap" class="w-4 h-4 text-neon-cyan"></i> 24h Response SLA</span>
+              <span class="flex items-center gap-1.5"><i data-lucide="lock" class="w-4 h-4 text-neon-orange"></i> Zero Outsourcing</span>
+            </div>
+          </div>
+
+          <!-- Right Column: Interactive Consultation & Request Form -->
+          <div class="lg:col-span-6 rounded-2xl border border-white/15 bg-obsidian-900/90 p-8 shadow-2xl relative">
+            <h3 class="font-display font-bold text-xl text-white mb-2">Initiate Transmission</h3>
+            <p class="text-xs text-slate-400 font-mono mb-6">Direct channel to Soren &amp; Elena (Founding Team).</p>
+
+            <form id="contact-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="space-y-1.5">
+                  <label for="contact-name" class="block text-xs font-mono text-slate-300">Your Name *</label>
+                  <input type="text" id="contact-name" required placeholder="Elena Rostova" class="w-full px-4 py-2.5 rounded-xl bg-obsidian-950 border border-white/10 text-white text-xs font-mono placeholder:text-slate-600 focus:outline-none focus:border-neon-cyan transition-colors">
+                </div>
+                <div class="space-y-1.5">
+                  <label for="contact-email" class="block text-xs font-mono text-slate-300">Work Email *</label>
+                  <input type="email" id="contact-email" required placeholder="elena@company.com" class="w-full px-4 py-2.5 rounded-xl bg-obsidian-950 border border-white/10 text-white text-xs font-mono placeholder:text-slate-600 focus:outline-none focus:border-neon-cyan transition-colors">
+                </div>
+              </div>
+
+              <div class="space-y-1.5">
+                <label for="contact-company" class="block text-xs font-mono text-slate-300">Company &amp; Website</label>
+                <input type="text" id="contact-company" placeholder="Apex Spatial AI (https://...)" class="w-full px-4 py-2.5 rounded-xl bg-obsidian-950 border border-white/10 text-white text-xs font-mono placeholder:text-slate-600 focus:outline-none focus:border-neon-cyan transition-colors">
+              </div>
+
+              <div class="space-y-1.5">
+                <label for="contact-message" class="block text-xs font-mono text-slate-300">Project Goals &amp; Scope *</label>
+                <textarea id="contact-message" rows="4" required placeholder="Describe your brand, technical goals, target launch timeline, or link your existing Figma/repo..." class="w-full px-4 py-2.5 rounded-xl bg-obsidian-950 border border-white/10 text-white text-xs font-mono placeholder:text-slate-600 focus:outline-none focus:border-neon-orange transition-colors"></textarea>
+              </div>
+
+              <!-- Quick Feature Tags Checklist -->
+              <div class="space-y-1.5 pt-1">
+                <span class="block text-[11px] font-mono text-slate-400">Include in Proposal:</span>
+                <div class="flex flex-wrap gap-2">
+                  <label class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-obsidian-950 border border-white/10 text-[11px] font-mono text-slate-300 cursor-pointer hover:border-white/20">
+                    <input type="checkbox" checked class="accent-neon-cyan"> 3D WebGL Shaders
+                  </label>
+                  <label class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-obsidian-950 border border-white/10 text-[11px] font-mono text-slate-300 cursor-pointer hover:border-white/20">
+                    <input type="checkbox" checked class="accent-neon-cyan"> Headless CMS Integration
+                  </label>
+                  <label class="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-obsidian-950 border border-white/10 text-[11px] font-mono text-slate-300 cursor-pointer hover:border-white/20">
+                    <input type="checkbox" class="accent-neon-cyan"> Custom Design Tokens
+                  </label>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <button type="submit" id="submit-btn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-neon-cyan via-blue-600 to-neon-orange text-white font-display font-bold text-xs uppercase tracking-wider shadow-glow-cyan hover:shadow-glow-orange transition-all duration-300 hover:scale-[1.01] active:scale-98 flex items-center justify-center gap-2 mt-4">
+                <span>Send Project Brief &amp; Lock Estimate</span>
+                <i data-lucide="send" class="w-4 h-4"></i>
+              </button>
+
+              <div id="form-feedback" class="text-center font-mono text-xs hidden"></div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Service Deliverables Modal Dialog -->
+  <dialog id="service-modal" class="modal-backdrop backdrop:bg-obsidian-950/80 backdrop:backdrop-blur-md p-0 rounded-3xl border border-white/20 bg-obsidian-950 text-slate-100 max-w-2xl w-full mx-auto my-auto shadow-2xl">
+    <div class="p-8 space-y-6">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div class="flex items-center gap-3">
+          <div id="modal-icon" class="w-10 h-10 rounded-xl bg-neon-cyan/20 border border-neon-cyan flex items-center justify-center text-neon-cyan font-bold">
+            <i data-lucide="palette" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 id="modal-title" class="font-display font-bold text-xl text-white">Service Title</h3>
+            <span id="modal-tag" class="text-[10px] font-mono text-neon-cyan uppercase">Category</span>
+          </div>
+        </div>
+        <button id="modal-close-btn" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors" aria-label="Close dialog">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <p id="modal-description" class="text-sm text-slate-300 leading-relaxed"></p>
+
+      <div class="space-y-3">
+        <h4 class="text-xs font-mono uppercase tracking-wider text-neon-orange font-semibold">Included Deliverables:</h4>
+        <ul id="modal-deliverables" class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-slate-300"></ul>
+      </div>
+
+      <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+        <span class="text-xs font-mono text-slate-400">Average Sprint: <strong class="text-white">2 - 4 Weeks</strong></span>
+        <a href="#cta" onclick="document.getElementById('service-modal').close()" class="px-5 py-2 rounded-xl bg-gradient-to-r from-neon-cyan to-neon-orange text-white font-display font-bold text-xs uppercase tracking-wider">
+          Request This Service
+        </a>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Futuristic Footer -->
+  <footer class="border-t border-white/10 bg-obsidian-950/90 relative z-10 pt-16 pb-12 px-6">
+    <div class="max-w-7xl mx-auto space-y-12">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+        
+        <!-- Brand Info -->
+        <div class="md:col-span-4 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-neon-cyan to-neon-orange p-[1px] shadow-glow-sm">
+              <div class="w-full h-full bg-obsidian-950 rounded-[11px] flex items-center justify-center font-display font-extrabold text-sm text-neon-cyan">
+                NX
+              </div>
+            </div>
+            <span class="font-display font-bold text-lg tracking-wider text-white">NEXUS // DIGITAL</span>
+          </div>
+          <p class="text-xs text-slate-400 font-mono leading-relaxed max-w-sm">
+            Bridging hyper-aesthetic Figma design with modern Next.js and Three.js WebGL engineering. Architected for speed, conversion, and global recognition.
+          </p>
+          <div class="flex items-center gap-3 pt-2">
+            <a href="#" class="p-2 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-neon-cyan hover:border-neon-cyan/40 transition-colors" aria-label="Github"><i data-lucide="github" class="w-4 h-4"></i></a>
+            <a href="#" class="p-2 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-neon-cyan hover:border-neon-cyan/40 transition-colors" aria-label="Twitter / X"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+            <a href="#" class="p-2 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-neon-orange hover:border-neon-orange/40 transition-colors" aria-label="Dribbble"><i data-lucide="dribbble" class="w-4 h-4"></i></a>
+            <a href="#" class="p-2 rounded-xl bg-white/5 border border-white/10 text-slate-400 hover:text-neon-cyan hover:border-neon-cyan/40 transition-colors" aria-label="Figma"><i data-lucide="figma" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+
+        <!-- Links Navigation -->
+        <div class="md:col-span-2 space-y-3 font-mono text-xs">
+          <span class="text-white font-bold uppercase tracking-wider block">Showcases</span>
+          <ul class="space-y-2 text-slate-400">
+            <li><a href="#web-design" class="hover:text-neon-cyan transition-colors">Figma Transformer</a></li>
+            <li><a href="#web-development" class="hover:text-neon-orange transition-colors">Live Code Engine</a></li>
+            <li><a href="#projects" class="hover:text-neon-cyan transition-colors">Portfolio Archive</a></li>
+            <li><a href="#process" class="hover:text-neon-orange transition-colors">5-Stage Pipeline</a></li>
+          </ul>
+        </div>
+
+        <div class="md:col-span-2 space-y-3 font-mono text-xs">
+          <span class="text-white font-bold uppercase tracking-wider block">Capabilities</span>
+          <ul class="space-y-2 text-slate-400">
+            <li><a href="#services" class="hover:text-neon-cyan transition-colors">UI/UX Systems</a></li>
+            <li><a href="#services" class="hover:text-neon-orange transition-colors">Next.js Development</a></li>
+            <li><a href="#services" class="hover:text-neon-cyan transition-colors">Three.js WebGL</a></li>
+            <li><a href="#services" class="hover:text-neon-orange transition-colors">CWV Speed Audits</a></li>
+          </ul>
+        </div>
+
+        <!-- System Telemetry Status -->
+        <div class="md:col-span-4 p-5 rounded-2xl border border-white/10 bg-white/[0.02] space-y-3 font-mono text-xs">
+          <div class="flex items-center justify-between">
+            <span class="text-slate-400">Telemetry Status:</span>
+            <span class="text-emerald-400 font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> ALL SYSTEMS NOMINAL</span>
+          </div>
+          <div class="text-[11px] text-slate-500 space-y-1">
+            <div class="flex justify-between"><span>Global Edge Nodes:</span><span class="text-slate-300">32 / 32 Active</span></div>
+            <div class="flex justify-between"><span>Lighthouse Median:</span><span class="text-slate-300">100 / 100</span></div>
+            <div class="flex justify-between"><span>Latency to Client:</span><span class="text-neon-cyan">18ms</span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Copyright & Back to Top -->
+      <div class="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs text-slate-500">
+        <p>&copy; 2026 NEXUS DIGITAL INC. All rights reserved. Crafted with precision for category champions.</p>
+        <div class="flex items-center gap-4">
+          <a href="#hero" class="hover:text-neon-cyan flex items-center gap-1 transition-colors">
+            <span>Back to top</span> <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+  <script>
+    // Initialize Lucide Icons
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>

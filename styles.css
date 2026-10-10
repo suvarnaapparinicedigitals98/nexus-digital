@@ -1,0 +1,446 @@
+ /* ==========================================================================
+   NEXUS // DIGITAL — Design System & Custom Styles
+   Futuristic Dark Modern Aesthetic with Glassmorphism & Neon Gradients
+   ========================================================================== */
+
+:root {
+  --obsidian: #06080e;
+  --obsidian-950: #0a0d18;
+  --obsidian-900: #101426;
+  --obsidian-850: #141a30;
+  --obsidian-800: #18203c;
+  
+  --neon-cyan: #00f0ff;
+  --neon-cyan-dark: #0099b8;
+  --neon-blue: #3b82f6;
+  --neon-orange: #ff6b00;
+  --neon-amber: #ff9900;
+  --neon-purple: #a855f7;
+  --neon-emerald: #10b981;
+
+  --shadow-cyan-glow: 0 0 35px -5px rgba(0, 240, 255, 0.35);
+  --shadow-orange-glow: 0 0 35px -5px rgba(255, 107, 0, 0.35);
+  --shadow-purple-glow: 0 0 35px -5px rgba(168, 85, 247, 0.35);
+
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+/* Base Resets & Global Styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--obsidian);
+  color: #f1f5f9;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Typography Helpers */
+.font-display { font-family: var(--font-display); }
+.font-mono { font-family: var(--font-mono); }
+.font-sans { font-family: var(--font-sans); }
+
+/* Custom Colors mapping */
+.bg-obsidian { background-color: var(--obsidian); }
+.bg-obsidian-950 { background-color: var(--obsidian-950); }
+.bg-obsidian-900 { background-color: var(--obsidian-900); }
+.text-neon-cyan { color: var(--neon-cyan); }
+.text-neon-orange { color: var(--neon-orange); }
+.border-neon-cyan { border-color: var(--neon-cyan); }
+.border-neon-orange { border-color: var(--neon-orange); }
+
+/* Glowing Drop Shadows */
+.shadow-glow-cyan {
+  box-shadow: 0 0 30px -5px rgba(0, 240, 255, 0.35);
+}
+.shadow-glow-orange {
+  box-shadow: 0 0 30px -5px rgba(255, 107, 0, 0.35);
+}
+.shadow-glow-sm {
+  box-shadow: 0 0 15px -3px rgba(0, 240, 255, 0.3);
+}
+
+/* Ambient Glowing Background Elements */
+.ambient-glow {
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  filter: blur(140px);
+  opacity: 0.22;
+  pointer-events: none;
+  animation: floatOrb 22s ease-in-out infinite alternate;
+}
+
+.glow-cyan {
+  background: radial-gradient(circle, var(--neon-cyan) 0%, rgba(0, 240, 255, 0) 70%);
+}
+
+.glow-orange {
+  background: radial-gradient(circle, var(--neon-orange) 0%, rgba(255, 107, 0, 0) 70%);
+  animation-delay: -7s;
+}
+
+.glow-blue {
+  background: radial-gradient(circle, #2563eb 0%, rgba(37, 99, 235, 0) 70%);
+  animation-delay: -14s;
+}
+
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(60px, -40px) scale(1.15); }
+  100% { transform: translate(-40px, 60px) scale(0.9); }
+}
+
+/* Futuristic Ambient Grid */
+.ambient-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.8) 0%, transparent 75%);
+  -webkit-mask-image: radial-gradient(ellipse at center, rgba(0,0,0,0.8) 0%, transparent 75%);
+  pointer-events: none;
+}
+
+.bg-cyber-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Mouse Follower Spotlight */
+.cursor-spotlight {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.08) 0%, rgba(255, 107, 0, 0.04) 35%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.4s ease;
+  z-index: 1;
+}
+
+/* Glassmorphism Elements */
+.glassmorphic {
+  background: rgba(10, 13, 24, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Keyframe Animations */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes reverseSpin {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 20s linear infinite;
+}
+
+.animate-reverse-spin {
+  animation: reverseSpin 15s linear infinite;
+}
+
+/* Navigation Links */
+.nav-link {
+  position: relative;
+  padding: 0.25rem 0;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-orange));
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 2px;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ==========================================================================
+   2. FIGMA TO LIVE WEBSITE TRANSFORMER
+   ========================================================================== */
+#transformer-card {
+  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px -10px rgba(0, 240, 255, 0.15);
+}
+
+.figma-canvas {
+  background-color: #171822;
+  position: absolute;
+  inset: 0;
+}
+
+.figma-grid {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Simulated Figma Collaborative Cursors */
+.figma-cursor {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  pointer-events: none;
+  z-index: 20;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.figma-badge {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.cursor-elena {
+  animation: floatCursor1 10s ease-in-out infinite alternate;
+}
+
+.cursor-marcus {
+  animation: floatCursor2 12s ease-in-out infinite alternate;
+}
+
+@keyframes floatCursor1 {
+  0% { transform: translate(0, 0); }
+  35% { transform: translate(50px, 30px); }
+  70% { transform: translate(-30px, 80px); }
+  100% { transform: translate(20px, -20px); }
+}
+
+@keyframes floatCursor2 {
+  0% { transform: translate(0, 0); }
+  40% { transform: translate(-70px, -40px); }
+  80% { transform: translate(30px, -60px); }
+  100% { transform: translate(-40px, 20px); }
+}
+
+/* Split Slider Handle */
+#split-slider {
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.8), 0 0 40px rgba(255, 107, 0, 0.5);
+  transition: transform 0.05s ease-out;
+}
+
+#split-slider:hover {
+  cursor: ew-resize;
+}
+
+/* ==========================================================================
+   3. WEB DEVELOPMENT / LIVE CODE & BROWSER ENGINE
+   ========================================================================== */
+#code-editor-content pre {
+  margin: 0;
+  tab-size: 2;
+  font-variant-ligatures: normal;
+}
+
+/* Custom Syntax Highlighting Styles */
+.token-keyword { color: #ff6b00; font-weight: 600; }
+.token-type { color: #38bdf8; }
+.token-func { color: #00f0ff; }
+.token-string { color: #34d399; }
+.token-comment { color: #64748b; font-style: italic; }
+.token-punct { color: #94a3b8; }
+.token-prop { color: #c084fc; }
+.token-tag { color: #f43f5e; }
+
+/* Browser Viewport Modes */
+.viewport-mobile {
+  max-width: 380px !important;
+  transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.viewport-tablet {
+  max-width: 540px !important;
+  transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.viewport-desktop {
+  max-width: 100% !important;
+  transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ==========================================================================
+   4. BENTO CARDS & INTERACTIVE SPOTLIGHTS
+   ========================================================================== */
+.bento-card {
+  position: relative;
+  background: rgba(10, 13, 24, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.bento-card:hover {
+  transform: translateY(-5px);
+}
+
+.bento-spotlight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255, 255, 255, 0.08), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.bento-card:hover .bento-spotlight {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   5. PROCESS PIPELINE
+   ========================================================================== */
+.process-node {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.process-node.active {
+  border-color: var(--neon-cyan);
+  box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.35);
+  background-color: rgba(10, 13, 24, 0.95);
+  transform: translateY(-4px);
+}
+
+.process-node:hover:not(.active) {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   6. PROJECTS & TECH NODES
+   ========================================================================== */
+.project-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+}
+
+.tech-node {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tech-node:hover {
+  transform: translateY(-4px);
+}
+
+.team-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-6px);
+}
+
+/* ==========================================================================
+   7. PROJECT ESTIMATOR & FORM STYLING
+   ========================================================================== */
+.scope-btn.active {
+  border-color: var(--neon-cyan);
+  background-color: rgba(0, 240, 255, 0.12);
+  color: #ffffff;
+  box-shadow: 0 0 15px -3px rgba(0, 240, 255, 0.25);
+}
+
+/* Range input styling */
+input[type="range"] {
+  accent-color: var(--neon-cyan);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 10px var(--neon-cyan);
+  cursor: pointer;
+  margin-top: -6px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 6px;
+  cursor: pointer;
+  background: #1e293b;
+  border-radius: 4px;
+}
+
+/* Dialog Modal */
+dialog {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 40px -10px rgba(0, 240, 255, 0.3);
+}
+
+dialog::backdrop {
+  background: rgba(6, 8, 14, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Accessible Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .ambient-glow, .figma-cursor, .animate-spin-slow, .animate-reverse-spin {
+    animation: none !important;
+  }
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 4px;
+  border: 2px solid var(--obsidian);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-cyan-dark);
+}
